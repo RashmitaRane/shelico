@@ -1,0 +1,38 @@
+<!-- signup -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='signup.css') }}">
+    <style>
+        body {
+            background: url("{{ url_for('static', filename='image/lg.png') }}") no-repeat center;
+            background-size: cover;
+        }
+        </style>
+</head>
+<body>
+    <div class="container">
+        <div class="signup-box">
+            <h2>Sign Up</h2>
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <p class="{{ category }}">{{ message }}</p>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            <form action="/signup" method="POST">
+                <input type="text" name="name" placeholder="Full Name" required pattern="[A-Za-z\s]+" title="Please enter only letters">
+                <input type="email" name="email" placeholder="Email" required pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}" title="Enter a valid email (e.g., user@example.com)">
+                <input type="password" name="password" placeholder="Password" required  pattern="^(?=.*[A-Z]).{8,}$" title="Password must be at least 8 characters long and start with a capital letter">
+                <input type="password" name="confirm_password" placeholder="Confirm Password" required>
+                <button type="submit">SIGN UP</button>
+            </form>
+            <p>Already have an account? <a href="{{ url_for('login') }}">Login now</a></p>
+        </div>
+    </div>
+</body>
+</html>

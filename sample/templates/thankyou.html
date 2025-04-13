@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thank You</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='thankyou.css') }}">
+
+    <style>
+        body {
+            background: url("{{ url_for('static', filename='image/lg.png') }}") no-repeat center;
+            background-size: cover;
+        }
+    </style>
+</head>
+<body>
+    <div class="thankyou-container">
+        <h1>Thank You for Signing Up!</h1>
+        <p>Your account has been successfully created.</p>
+        <a href="{{ url_for('login') }}" class="back-to-login">Go to Login</a>
+    </div>
+</body>
+</html>

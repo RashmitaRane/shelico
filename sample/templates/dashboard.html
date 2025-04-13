@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="{{ url_for('static', filename='dashboard.css') }}">
+    <title>AdminSite</title>
+</head>
+<body>
+    <!-- SIDEBAR -->
+    <section id="sidebar">
+        <a href="#" class="brand"><i class='bx bxs-dashboard icon'></i> <pre>  Dashboard</pre></a>
+        <ul class="side-menu">
+            <li><a href="{{ url_for('index') }}"><i class='bx bxs-home icon' ></i>Home</a></li>
+            <li data-target="query-content"><a href="#"><i class='bx bxs-message-alt-dots icon'></i>Query Posting</a></li>
+            <li data-target="helpline-content"><a href="#"><i class='bx bxs-phone-call icon'></i>Health Helpline</a></li>
+            <li data-target="myth-content"><a href="#"><i class='bx bxs-ghost icon'></i>Myth Cards</a></li>
+            <li data-target="story-content"><a href="#"><i class='bx bxs-book-alt icon'></i>Story Board</a></li>
+        </ul>
+    </section>
+    
+    <section id="content">
+        <nav>
+            <i class='bx bx-menu toggle-sidebar' ></i>
+            <div class="logo">
+                <span>SHELICO</span>
+            </div>
+            <div class="nav-actions">
+                <div class="search-container">
+                    <i class='bx bx-search'></i>
+                    <input type="text" placeholder="Search a query...">
+                </div>
+                <button class="notification-btn">
+                    <i class='bx bx-bell'></i>
+                    <span class="notification-badge">3</span>
+                </button>
+                <button class="ask-query-btn">
+                    <i class='bx bx-plus'></i>
+                    <span>Ask Query</span>
+                </button>
+            </div>
+            
+            {% if session.get('username') %}
+            <div class="profile-dropdown" id="profileDropdown">
+                <div class="profile-circle" id="profileIcon">{{ session['initial'] }}</div>
+                <div class="dropdown-content" id="dropdownContent">
+                    <p><strong>{{ session['username'] }}</strong></p>
+                    <form action="{{ url_for('logout') }}" method="post">
+                        <button type="submit" id="logout-btn">Logout</button>
+                    </form>
+                </div>
+            </div>
+            {% else %}                
+            <a href="{{ url_for('login') }}" class="login-link">Login</a>
+            {% endif %}
+        </nav>
+        
+        <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+
+
+           <!-- Content Sections -->
+           <div id="query-content" class="content-section active">
+            <h2>Query Posting</h2>
+            <div class="query-list">
+                <!-- Query posts will appear here -->
+                <div class="query-item">
+                    <h3>Sample Query</h3>
+                    <p>This is where user queries will be displayed.</p>
+                </div>
+                <div class="query-item">
+                    <h3>Another Query</h3>
+                    <p>More sample content for the query posting section.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div id="helpline-content" class="content-section">
+            <h2>Health Helpline</h2>
+            <p>Emergency contacts and health resources will appear here.</p>
+        </div>
+        
+        <div id="myth-content" class="content-section">
+            <h2>Myth Cards</h2>
+            <p>Common health myths debunked will appear here.</p>
+        </div>
+        
+        <div id="story-content" class="content-section">
+            <h2>Story Board</h2>
+            <p>Inspirational health stories will appear here.</p>
+        </div>
+
+
+                    <!-- Query Popup -->
+            <div id="queryPopup" class="popup-overlay" style="display: none;">
+                <div class="popup-content">
+                    <span class="close-popup">&times;</span>
+                    <h2>Post a Query</h2>
+                    <form id="queryForm">
+                        <div class="form-group">
+                            <textarea id="queryText" name="queryText" maxlength="1000" placeholder="Type your query here..." required></textarea>
+                            <div class="char-count"><span id="charRemaining">1000</span> characters remaining</div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Visibility:</label>
+                            <div class="radio-group">
+                                <div class="radio-option">
+                                    <input type="radio" id="public" name="visibility" value="public" checked>
+                                    <label for="public">Public</label>
+                                    <div class="tooltip">Visible to all users</div>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="private" name="visibility" value="private">
+                                    <label for="private">Private</label>
+                                    <div class="tooltip">Only visible to you and doctors</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="submit-btn">Submit Query</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Story Popup -->
+            <div id="storyPopup" class="popup-overlay" style="display: none;">
+                <div class="popup-content">
+                    <span class="close-popup">&times;</span>
+                    <h2>Share Your Health Story</h2>
+                    <form id="storyForm">
+                        
+                        <div class="form-group">
+                            <textarea id="storyText" name="storyText" maxlength="2000" placeholder="Share your personal health journey..." required></textarea>                            <div class="char-count"><span id="storyCharRemaining">2000</span> characters remaining</div>
+                        </div>
+            
+            <button type="submit" class="submit-btn">Share Story</button>
+        </form>
+    </div>
+</div>
+        </section>
+    </body>
+</html>
