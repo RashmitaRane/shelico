@@ -1,0 +1,593 @@
+/* General Styling */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: #fff;
+}
+
+/* General Container Width */
+.container {
+    width: 100%; /* Controls overall width */
+  /* Prevents too wide screens */
+    margin: auto; /* Centers the content */
+}
+
+
+/* Navbar */
+header {
+    width: 100%;
+    height: 0%;
+    padding: 15px 100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav {
+    display: flex;
+    justify-content: flex-end; /* Aligns items to the right */
+    align-items: center;
+    width: 100%;
+    padding: 10px 30px;
+    margin-right: 0%;
+    margin-left:0%;
+}
+
+.logo {
+    margin-right: auto; /* Pushes the logo to the left */
+    display: flex;
+    align-items: center;
+    font-style: italic;
+    font-weight: bolder;
+    font-size: x-large;
+    max-width: 180px; /* Adjust width to be smaller */
+    overflow: hidden;
+}
+   
+.logo-img {
+    width: 40px; /* Adjust size */
+    height: auto;
+    margin-right: -20px; /* Space between logo and text */
+    flex-shrink: 0;
+
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 40px;
+    margin-right: 40px; /* Adds space between Contact and Register */
+}
+
+.nav-links li {
+    display: inline;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: black;
+    font-size: 16px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+    color: #D4A55D;
+}
+
+.btn-explore {
+    display: inline-block;
+    background-color: #bb7d17; /* Same color as Register button */
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 5px;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+
+    position: absolute;
+    left: 20%; /* Adjust left spacing as needed */
+    top: 55%;
+    transform: none
+}
+
+.btn-explore:hover {
+    background-color: #b68a4d; /* Darker shade on hover */
+}
+
+
+
+/* Login Button */
+.login-btn {
+    background-color: #bb7d17;
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.login-btn:hover {
+    background-color: #b68a4d;
+}
+
+
+/* Hero Section */
+.hero {
+    width:100%;
+    height: 500px; /* Adjust this height as needed */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; 
+    background-color: #f7f7f7;
+}
+@media (max-width: 168px) {
+    .hero{
+        height: 190px; /* Adjust for mobile */
+    }
+}
+
+
+.hero img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.hero-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Aligns content to the left */
+    padding-left: 50px; /* Adjust padding as needed */
+}
+
+
+
+
+/* Dropdown Container */
+.login-container {
+    position: relative;
+    display: inline-block;
+}
+
+/* Hide dropdown by default */
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    min-width: 120px;
+    right: 0;
+    top: 40px;
+    overflow: hidden;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out, transform 0.2s ease-in-out;
+    transform: translateY(-10px);
+}
+
+/* Show dropdown when active */
+.dropdown-menu.show {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Dropdown Items */
+.dropdown-menu a {
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+    text-decoration: none;
+    color: #333;
+    font-size: 14px;
+    transition: background 0.3s;
+}
+
+/* Add space for icons */
+.dropdown-menu a i {
+    margin-right: 10px;
+}
+
+/* Hover effect */
+.dropdown-menu a:hover {
+    background: #f5f5f5;
+}
+
+
+
+
+
+/* Services Section */
+#services {
+    padding: 40px 0px;
+}
+
+/* Services Container: Align Image and Text */
+.services-container {
+    display: flex;
+    align-items:center;
+    justify-content: space-between;
+}
+@media (max-width: 768px) {
+    .services-container {
+        display: flex;
+        flex-direction:column; /* Stack items vertically */
+        align-items: center; /* Center align */
+    }
+    
+    .service-card {
+        width: 80%; /* Adjust width for smaller screens */
+        margin-bottom: 20px; /* Add space between cards */
+    }
+    
+}
+/* Services Image */
+.services-image {
+    width: 350px;  /* Adjust based on your screenshot */
+}
+
+/* Services Content */
+.services-content {
+    flex: 1;
+    text-align: left;
+}
+
+/* Services Title (OUR SERVICES) */
+.services-title {
+    font-size: 22px;
+    font-weight: bold;
+    background: #f4ede6;
+    color: #a67238;
+    padding: 10px 20px;
+    border-radius: 8px;
+    display: inline-block;
+    margin-bottom: 90px;
+    margin-left:400px;  /*for the text services */
+}
+
+/* Services Grid */
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);  /*for the column position */
+    gap:15px;
+}
+
+/* Individual Service Box */
+.service-item {
+    border: 4px solid #a67238;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    width: 250px;
+    height:300px;
+}
+
+.service-item img {
+    width: 150px;  /* Icon size */
+    margin-bottom: 10px;
+}
+
+.service-item p {
+    font-size: 30px;
+    font-weight: bold;
+    color: #333;
+}
+
+/* About Us Section */
+#about-us {
+    background-color:white; /* Same grey as footer */
+    padding: 50px 0; /* Keep it balanced */
+    text-align: center;
+    color:black; /* White text for contrast */
+    margin-bottom: 0%; /* Remove white gap */
+}
+
+/* About Us Container */
+.about-us-container {
+    max-width: 800px;
+    margin: auto;
+}
+
+/* About Us Title */
+.about-us-title {
+    font-size: 22px;
+    font-weight: bold;
+    background: #f4ede6;
+    color: #a67238;
+    padding: 10px 20px;
+    border-radius: 8px;
+    display: inline-block;
+    margin-bottom: 40px;
+    margin-left:80px;  /*for the text about us */
+}
+
+/* About Us Content */
+.about-us-content {
+    font-size: 18px;
+    line-height: 1.6;
+}
+/* Footer */
+footer {
+    margin-top: 50px;
+    background-color: #f8f1e9;
+    padding: 20px 0;
+    margin-left: 0%;
+   
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-around;
+}
+
+.brand h2 {
+    color: #d4a053;
+    margin: 0;
+}
+
+.brand p {
+    font-size: 14px;
+    color: #666;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+ul li {
+    font-size: 14px;
+    color: #333;
+    margin: 5px 0;
+}
+
+/* Copyright Bar */
+.copyright-bar {
+    background: #d4a053;
+    color: white;
+    padding: 10px 20px;
+    margin-top: 20px;
+    text-align: center;
+}
+
+
+/* General Styling */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: #fff;
+}
+
+/* Profile Section */
+.profile-container {
+    display: flex !important;
+}
+
+/* Profile Icon */
+.profile-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #d6891e; /* Golden color */
+    color: white;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+/* Profile Dropdown */
+.profile-dropdown {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 50px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+    padding: 10px; /* Increase padding */
+     width: 180px; /* Increase width */
+    text-align: center;
+    z-index: 1000;
+}
+
+.profile-dropdown p {
+    margin: 5px 0;
+    font-size: 14px; /*make text larger*/
+    color: #333;
+}
+
+/* Logout Button */
+.logout-btn {
+    display: block;
+    background: #b06b16;
+    color: white;
+    text-decoration: none;
+    font-size: 14px;       /*button text bigger*/
+    padding: 8px;         /*button big*/
+    border-radius: 5px;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.logout-btn:hover {
+    background: #8a5110;
+}
+
+/* Hide Register Button when Logged In */
+.register-btn {
+    display: none;
+}
+
+/* Show Register Button when Not Logged In */
+body:not(.logged-in) .register-btn {
+    display: block;
+}
+
+/* Hide Profile Section when Not Logged In */
+body:not(.logged-in) .profile-container {
+    display: none;
+}
+
+/* reveal on scroll */
+.reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Ensure service cards animate one by one */
+.service-item {
+    transition-delay: 0.2s;
+}
+
+
+
+ /* Dropdown Styling */
+ .dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: white;
+    min-width: 120px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+    border-radius: 5px;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 10px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: #f1f1f1;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* General Button Styling */
+button {
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 12px 20px;
+    border-radius: 5px;
+    transition: 0.3s ease;
+}
+
+
+/* Service Buttons */
+.services-btn {
+    background-color: #bb7d17;
+    color: white;
+}
+
+.services-btn:hover {
+    background-color: #b68a4d;
+}
+.profile-container {
+    display: flex !important;
+}
+
+.profile-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #bb7d17;
+    color: white;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    cursor: pointer;
+    position: relative;
+}
+
+.profile-dropdown {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 50px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+    padding: 10px;
+    width: 180px;
+    text-align: center;
+    z-index: 1000;
+}
+.profile-container {
+    position: relative;
+    display: flex !important;
+    align-items: center;
+}
+.profile-dropdown {
+    display: none;
+}
+
+.profile-dropdown.show {
+    display: block;
+}
+/* Make username text bold and larger */
+.profile-dropdown p {
+    margin: 5px 0;
+    font-size: 16px;
+    font-weight: bold; /* <-- add this */
+    color: #333;
+}
+
+/* Make logout button fill the dropdown container */
+.logout-btn {
+    display: block;
+    width: 100%;           /* <-- full width */
+    background: #bb7d17;
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+    padding: 10px 0;       /* top-bottom padding, remove side padding */
+    border-radius: 0;      /* remove corner round for flush edges */
+    margin: 0;             /* no margin so it aligns fully */
+    border-top: 1px solid #ccc; /* optional: separator line */
+    text-align: center;
+}
+
+.logout-btn:hover {
+    background: #a56e14;
+}

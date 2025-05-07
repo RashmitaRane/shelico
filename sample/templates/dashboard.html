@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="{{ url_for('static', filename='dashboard.css') }}">
+    <title>User Dashboard</title>
+</head>
+<body>
+    <!-- NAVBAR -->
+    <nav>
+        <div class="logo">
+            <span>SHELICO</span>
+        </div>
+        
+        <!-- SEARCH BAR -->
+        <div class="search-container">
+            <i class='bx bx-search'></i>
+            <input type="text" placeholder="Search a query...">
+        </div>
+
+        <div class="nav-tabs">
+            <a href="{{ url_for('index') }}" class="nav-tab">Home</a>
+            <a href="#" class="nav-tab" data-target="query-content">Health Queries</a>
+            <a href="#" class="nav-tab" data-target="helpline-content">Health Helpline</a>
+            <a href="#" class="nav-tab" data-target="myth-content">Myth Cards</a>
+            <a href="#" class="nav-tab" data-target="story-content">Story Board</a>
+        </div>
+        
+        <div class="nav-right">
+            
+            {% if session.get('username') %}
+            <div class="profile-dropdown" id="profileDropdown">
+                <div class="profile-circle" id="profileIcon">{{ session['initial'] }}</div>
+                <div class="dropdown-content" id="dropdownContent">
+                    <p><strong>{{ session['name'] }}</strong></p>
+                    <a href="#" class="dropdown-item" id="viewMyPosts">
+                        <i class='bx bx-book-alt'></i> My Posts
+                    </a>
+                    <form action="{{ url_for('logout') }}" method="post">
+                        <button type="submit" id="logout-btn">Logout</button>
+                    </form>
+                </div>
+            </div>
+            
+            {% else %}                
+            <a href="{{ url_for('login') }}" class="login-link">Login</a>
+            {% endif %}
+        </div>
+        
+    </nav>
+    
+    <button class="ask-query-btn" id="askQueryBtn">
+        <i class='bx bx-plus'></i>
+        <span>Ask Query</span>
+    </button>
+
+    <!-- CONTENT SECTIONS -->
+    <div id="query-content" class="content-section active">
+        <h2>Health Queries</h2><br>
+        <div class="query-list" id="queryList">
+            <div class="loading-spinner">
+                <i class='bx bx-loader-alt bx-spin'></i> Loading queries...
+            </div>
+        </div>
+    </div>
+    
+    <div id="helpline-content" class="content-section">
+        <h2>Health Helpline</h2><br>
+        <div class="helpline-list" id="helplineList">
+            <div class="loading-spinner">
+                <i class='bx bx-loader-alt bx-spin'></i> Loading health helplines...
+            </div>
+        </div>
+    </div>
+
+    <div id="myth-content" class="content-section">
+        <h2>Myth Cards</h2><br>
+        <div class="myth-card-container" id="mythCardContainer">
+            <div class="loading-spinner">
+                <i class='bx bx-loader-alt bx-spin'></i> Loading myth cards...
+            </div>
+        </div>
+    </div>
+    
+    <div id="story-content" class="content-section">
+        <h2>Story Board</h2>
+        <div class="story-list" id="storyList">
+            <div class="loading-spinner">
+                <i class='bx bx-loader-alt bx-spin'></i> Loading stories...
+            </div>
+        </div>
+    </div>
+      
+    <div id="myposts-content" class="content-section">
+        <h2>My Posts</h2>
+        <div class="filter-container">
+            <div class="filter-dropdown">
+                <button class="filter-btn">All Status <i class='bx bx-chevron-down'></i></button>
+                <div class="filter-options">
+                    <div class="filter-option" data-filter="all">All Status</div>
+                    <div class="filter-option" data-filter="story">Story Board</div>
+                    <div class="filter-option" data-filter="query">Health Queries</div>
+                </div>
+            </div>
+        </div>
+        <div class="myposts-list" id="myPostsList">
+            <div class="loading-spinner">
+                <i class='bx bx-loader-alt bx-spin'></i> Loading your posts...
+            </div>
+        </div>
+    </div>
+
+       <!-- Query Popup -->
+<div id="queryPopup" class="popup-overlay" style="display: none;">
+    <div class="popup-content">
+        <span class="close-popup">&times;</span>
+        <h2>Ask a Health Query</h2>
+        <form id="queryForm">
+            <div class="form-group">
+                <textarea id="queryText" name="queryText" maxlength="1000" placeholder="Type your health question here..." required></textarea>
+                <div class="char-count"><span id="charRemaining">1000</span> characters remaining</div>
+            </div>
+            <div class="form-group">
+                <label>Visibility:</label>
+                <div class="radio-group">
+                    <label class="radio-option">
+                        <input type="radio" name="visibility" value="public" checked>
+                        Public
+                        <span class="tooltip">Visible to everyone</span>
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="visibility" value="private">
+                        Private
+                        <span class="tooltip">Visible only to doctors</span>
+                    </label>
+                    </div>
+                    </div>
+                    <button type="submit" class="submit-btn">Submit Query</button>
+                </form>
+            </div>
+            </div>
+        <!-- Story Popup -->
+        <div id="storyPopup" class="popup-overlay" style="display: none;">
+            <div class="popup-content">
+                <span class="close-popup">&times;</span>
+                <h2>Share Your Health Story</h2>
+                <form id="storyForm">
+                    <div class="form-group">
+                        <input type="text" id="storyTitle" name="storyTitle" maxlength="100" placeholder="Story title (optional)" class="story-title-input">
+                    </div>
+                    <div class="form-group">
+                        <textarea id="storyText" name="storyText" maxlength="2000" placeholder="Share your personal health journey..." required></textarea>
+                        <div class="char-count"><span id="storyCharRemaining">2000</span> characters remaining</div>
+                    </div>
+                    <button type="submit" class="submit-btn">Share Story</button>
+                </form>
+            </div>
+        </div>
+    </section>
+    <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+</body>
+</html>

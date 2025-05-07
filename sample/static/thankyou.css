@@ -1,0 +1,51 @@
+/* Apply background image */
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Align content to the left */
+    justify-content: flex-start; /* Keep text near the top */
+    background: url("{{ url_for('static', filename='image/pg.png') }}") no-repeat center;
+    background-size: cover;
+    text-align: left; /* Align text to the left */
+    padding-left: 10%; /* Adjust left positioning */
+}
+
+/* Thank You Message */
+.thankyou-container {
+    margin-top: 50px; /* Move text slightly down */
+}
+
+.thankyou-container h1 {
+    font-size: 4rem;
+    color: #d6891e; /* Warm orange tone */
+    font-weight: bold;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.thankyou-container p {
+    font-size: 1.5rem;
+    color: #333;
+    font-weight: 500;
+}
+
+/* Login Button */
+.back-to-login {
+    margin-top: 20px;
+    padding: 12px 24px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: white;
+    background: #d6891e;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.back-to-login:hover {
+    background: #b06b16; /* Darker shade on hover */
+}

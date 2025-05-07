@@ -1,0 +1,113 @@
+  /* General Page Styling */
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: url("{{ url_for('static', filename='image/loginbackground.png') }}") no-repeat center;
+    background-size: cover;
+}
+
+/* Container to align Login Box */
+.container {
+    display: flex;
+    justify-content: flex-start; /* Moves login box to the left */
+    align-items: center;
+    height: 100vh;
+    width: 100%;
+    padding-left: 620px; /* Adjust distance from left */
+}
+
+/* Login Box Styling */
+.login-box {
+    width: 350px;
+    height: 500px;
+    padding: 70px;
+    background-color: e8c58d; /* Brownish shade */
+    background-color: #bb7d17;
+    border-radius: 20px;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    align-items: center;
+
+    backdrop-filter: blur(10px);
+}
+
+/* Login Title */
+.login-box h2 {
+    color: white;
+    font-size: 56px;
+    font-weight:bolder;
+    font-family:sans-serif;
+    letter-spacing: 2px;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    margin-top: 50px;
+}
+
+/* Input Fields */
+.login-box input {
+    width: 90%;
+    padding: 12px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 8px;
+    background: #e8c58d;
+    font-size: 16px;
+    color: #6b4e19;
+    outline: none;
+}
+
+/* Login Button */
+.login-box button {
+    width: 95%;
+    padding: 12px;
+    margin: 20px 0;
+    border: none;
+    border-radius: 8px;
+    background-color: white;
+    color: black;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-top: 30px;
+}
+
+.login-box button:hover {
+    background-color: #bb7d17;
+}
+
+/* Signup Text */
+.login-box p {
+    color: white;
+    font-size: 14px;
+    font-family:sans-serif;
+}
+
+.login-box a {
+    color: bb7d17;
+    font-weight: bold;
+    text-decoration: underline;
+}
+.forgot-password {
+    text-align: right; /* Aligns text to the right */
+    margin-top: 5px; /* Adjust spacing */
+    margin-right: 10px; /* Shift it a bit to the right */
+}
+
+.forgot-password a {
+    color: bb7d17; /* Adjust color */
+    font-size: 16px;
+    font-family: sans-serif;
+    text-decoration: none; /* Removes underline */
+    font-weight: bold;
+}
+
+.forgot-password a:hover {
+    text-decoration: underline; /* Underline on hover */
+}
+
+
+

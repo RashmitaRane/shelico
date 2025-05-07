@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enter Reset Token</title>
+    <style>
+          /* General Page Styling */
+            body {
+                margin: 0;
+                padding: 0;
+                height: 100vh;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background: url("{{ url_for('static', filename='image/lg.png') }}") no-repeat center;
+                background-size: cover;
+            }
+
+            /* Container to align Login Box */
+            .container {
+                display: flex;
+                justify-content: flex-start; /* Moves login box to the left */
+                align-items: center;
+                height: 100vh;
+                width: 100%;
+                padding-left: 500px; /* Adjust distance from left */
+            }
+
+            /* Login Box Styling */
+            .login-box {
+                width: 350px;
+                height: 500px;
+                padding: 70px;
+                background-color: #bb7d17; /* Brownish shade */
+                border-radius: 20px;
+                box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
+                text-align: center;
+                align-items: center;
+                backdrop-filter: blur(10px);
+            }
+
+            /* Login Title */
+            .login-box h2 {
+                color: white;
+                font-size: 56px;
+                font-weight:bold;
+                font-family:sans-serif;
+                letter-spacing: 2px;
+                text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+                margin-top: 50px;
+            }
+
+            /* Input Fields */
+            .login-box input {
+                width: 90%;
+                padding: 12px;
+                margin: 10px 0;
+                border: none;
+                border-radius: 8px;
+                background: #e8c58d;
+                font-size: 16px;
+                color: #6b4e19;
+                outline: none;
+            }
+
+            /* Login Button */
+            .login-box button {
+                width: 95%;
+                padding: 12px;
+                margin: 20px 0;
+                border: none;
+                border-radius: 8px;
+                background-color: white;
+                color: black;
+                font-size: 18px;
+                font-weight: bold;
+                cursor: pointer;
+                transition: 0.3s;
+                margin-top: 30px;
+            }
+
+            .login-box button:hover {
+                background-color: #f0e1c2;
+            }
+
+            /* Signup Text */
+            .login-box p {
+                color: white;
+                font-size: 14px;
+                font-family:sans-serif;
+            }
+
+            .login-box a {
+                color: white;
+                font-weight: bold;
+                text-decoration: underline;
+            }
+            .forgot-password {
+                text-align: right; /* Aligns text to the right */
+                margin-top: 5px; /* Adjust spacing */
+                margin-right: 10px; /* Shift it a bit to the right */
+            }
+
+            .forgot-password a {
+                color: white; /* Adjust color */
+                font-size: 16px;
+                font-family: sans-serif;
+                text-decoration: none; /* Removes underline */
+                font-weight: bold;
+            }
+
+            .forgot-password a:hover {
+                text-decoration: underline; /* Underline on hover */
+            }
+            .token-message {
+            color: white;
+            font-size: 16px;
+            margin: 15px 0;
+            font-family: sans-serif;
+        }
+
+
+
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="login-box">
+            <h2>Enter Reset Token</h2>
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <p class="{{ category }}">{{ message }}</p>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            
+            {% if is_admin %}
+                <p>A password reset token has been sent to {{ email }}</p>
+            {% endif %}
+            
+            <form action="{% if is_admin %}{{ url_for('admin_enter_token') }}{% else %}{{ url_for('enter_token') }}{% endif %}" method="POST">
+                {% if not is_admin %}
+                    <input type="email" name="email" placeholder="Enter your email" class="input-field" required>
+                {% endif %}
+                <input type="text" name="token" placeholder="Enter token" class="input-field" required>
+                <button type="submit" class="btn">Verify Token</button>
+            </form>
+            <p><a href="{% if is_admin %}{{ url_for('admin_forgot_password') }}{% else %}{{ url_for('forgot_password') }}{% endif %}">Back to Forgot Password</a></p>
+        </div>
+    </div>
+</body>
+</html>

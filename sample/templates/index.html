@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SHELICO</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    
+</head>
+<body>
+    <div class="container">
+        <!-- Navbar -->
+        <header class="reveal">
+            <nav>
+                <div class="logo">
+                    <span>SHELICO</span>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="#hero" class="active">Home</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#about-us">About</a></li>
+                </ul>
+                {% if session.get('user_id') %}
+                <!-- Profile Icon and Dropdown -->
+                <div class="profile-container">
+                    <div class="profile-icon" id="profile-icon">{{ session.get('initial', 'U') }}</div>
+                    <div class="profile-dropdown" id="profile-dropdown">
+                        <p>{{ session.get('username') }}</p>
+                        <form action="{{ url_for('logout') }}" method="POST">
+                            <button type="submit" class="logout-btn">Logout</button>
+                        </form>
+                    </div>
+                </div>
+            {% else %}
+                <!-- Login Dropdown -->
+                <div class="dropdown">
+                    <button class="login-btn">Login</button>
+                    <div class="dropdown-content">
+                        <a href="{{ url_for('login') }}">User</a>
+                        <a href="{{ url_for('admin_login') }}">Admin</a>                       
+                    </div>
+                </div>
+            {% endif %}
+            
+            </nav>
+        </header>
+
+        <!-- Include External JavaScript -->
+        <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+        <!-- Hero Section -->
+        <main>
+            <section class="hero">
+                <img src="{{ url_for('static', filename='image/king (1).png') }}" alt="Hero Banner">
+                <div class="hero-content">   
+                    <a href="{{ url_for('dashboard') if session.get('user_id') else url_for('login') }}" class="btn-explore">Get Support</a>
+                </div>
+            </section>
+        </main>
+
+        <!-- Services Section -->
+        <section id="services" class="reveal">
+            <div class="services-container">
+                <img src="{{ url_for('static', filename='image/services.png') }}" alt="Services Illustration" class="services-image">
+                <div class="services-content">
+                    <h1 class="services-title reveal">OUR SERVICES</h1>
+                    <div class="services-grid">
+                        <div class="service-item reveal">
+                            <img src="{{ url_for('static', filename='image/queryposting.png') }}" alt="Query Posting">
+                            <button onclick="window.location.href='/dashboard?section=query'" class="services-btn">Health Queries</button>
+                        </div>
+                        <div class="service-item reveal">
+                            <img src="{{ url_for('static', filename='image/mythcards.png') }}" alt="Myth Cards">
+                            <button onclick="window.location.href='/dashboard?section=myth'" class="services-btn">Myth Cards</button>
+                        </div>
+                        <div class="service-item reveal">
+                            <img src="{{ url_for('static', filename='image/helpline.png') }}" alt="Health Helpline">
+                            <button onclick="window.location.href='/dashboard?section=helpline'" class="services-btn">Health Helpline</button>
+                        </div>
+                        <div class="service-item reveal">
+                            <img src="{{ url_for('static', filename='image/storyboard.png') }}" alt="Story Board">
+                            <button onclick="window.location.href='/dashboard?section=story'" class="services-btn">Story Board</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Us Section -->
+        <section id="about-us" class="reveal">
+            <div class="about-us-container">
+                <h2 class="about-us-title">ABOUT US</h2>
+                <p class="about-us-content">
+                    Shelico is a platform dedicated to empowering women through knowledge, 
+                    support, and community. We provide a safe space where women can seek reliable health information, 
+                    share their experiences, and access expert guidance. Because every woman deserves to be heard, 
+                    informed, and uplifted.
+                </p>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="reveal">
+            <div class="footer-content">
+                <div class="brand">
+                    <h2>Shelico</h2>
+                    <p>
+                        <ul>
+                            <li>Empower. Educate. Elevate.</li>
+                            <li>A safe space for women's health discussions, support, and resources.</li>  
+                        </ul>
+                    </p>
+                </div>
+                <div class="services-list">
+                    <h3>Services</h3>
+                    <ul>
+                        <li>Query Posting</li>
+                        <li>Myth Cards</li>
+                        <li>Health Helpline Numbers</li>
+                        <li>Storyboard</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright-bar">
+                ©2025, Shelico. All rights reserved
+            </div>
+        </footer>
+
+        <!-- Scroll Reveal Script -->
+        <script src="{{ url_for('static', filename='js/reveal.js') }}"></script>
+    </div>
+</body>
+</html>

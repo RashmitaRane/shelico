@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="{{ url_for('static', filename='admindashboard.css') }}">
+    <title>Admin Dashboard</title>
+</head>
+<body>
+    <!-- SIDEBAR -->
+    <section id="sidebar">
+        <a href="#" class="brand"><i class='bx bxs-dashboard icon'></i> <pre>  Admin Dashboard</pre></a>
+        <ul class="side-menu">
+            <li><a href="{{ url_for('index') }}"><i class='bx bxs-home icon' ></i>Home</a></li>
+            <li data-target="dashboard-content"><a href="#"><i class='bx bxs-dashboard icon'></i>Dashboard</a></li>
+            <li data-target="query-content"><a href="#"><i class='bx bxs-message-alt-dots icon'></i>Query Posting</a></li>
+            <li data-target="helpline-content"><a href="#"><i class='bx bxs-phone-call icon'></i>Health Helpline</a></li>
+            <li data-target="myth-content"><a href="#"><i class='bx bxs-ghost icon'></i>Myth Cards</a></li>
+            <li data-target="storyboard-content"><a href="#"><i class='bx bxs-book-content icon'></i>Storyboard</a></li>
+        </ul>
+    </section>
+    
+    <section id="content">
+        <nav>
+            <i class='bx bx-menu toggle-sidebar'></i>
+            <div class="logo">
+                <span>SHELICO</span>
+            </div>
+            <div class="nav-actions">
+                <div class="search-container">
+                    <!-- <i class='bx bx-search'></i>
+                    <input type="text" placeholder="Search a query..."> -->
+                </div>
+                
+                <!-- Dynamic action button - will be shown based on active section -->
+                <button class="action-btn" id="dynamicActionBtn">
+                    <i class='bx bx-plus'></i>
+                    <span>Post Helpline</span>
+                </button>
+            </div>
+                    
+            {% if session.get('admin_id') %}
+            <div class="profile-dropdown" id="profileDropdown">
+                <div class="profile-circle" id="profileIcon">{{ session['initial'] }}</div>
+                <div class="dropdown-content" id="dropdownContent">
+                    <p><strong>{{ session['admin_email'] }}</strong></p>
+                    <form action="{{ url_for('admin_logout') }}" method="post">
+                        <button type="submit" id="logout-btn">Logout</button>
+                    </form>
+                </div>
+            </div>
+        {% else %}
+            <a href="{{ url_for('admin_login') }}" class="login-link">Login</a>
+        {% endif %}
+
+        </nav>
+
+        <!-- Content Sections -->
+       
+        <div id="dashboard-content" class="content-section">
+            <h2>Admin Dashboard</h2>
+            <div class="dashboard-stats">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class='bx bxs-message-alt-dots'></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>PENDING QUERIES</h3>
+                        <p id="pending-queries">0</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class='bx bxs-book-content'></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>TOTAL STORIES</h3>
+                        <p id="new-stories">0</p>
+                    </div>
+                </div>
+                <div class="stat-card total-row">
+                    <div class="stat-icon">
+                        <i class='bx bxs-phone-call'></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>TOTAL HELPLINES</h3>
+                        <p id="total-helplines">0</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card total-row">
+                    <div class="stat-icon">
+                        <i class='bx bxs-ghost'></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>TOTAL MYTH CARDS</h3>
+                        <p id="total-myths">0</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class='bx bxs-user'></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>TOTAL USERS</h3>
+                        <p id="total-users">0</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="recent-activity">
+                <h3>Recent Activity</h3>
+                <div class="activity-list" id="activityList">
+                    <!-- Activities will be loaded here -->
+                </div>
+            </div>
+        </div>
+
+        <div id="query-content" class="content-section active">
+            <h2>Query Posting</h2>
+            <div class="filter-container">
+                <!-- Status Filter -->
+                <div class="filter-dropdown">
+                    <button class="filter-btn" id="statusFilterBtn">
+                        <i class='bx bx-filter'></i>
+                        <span>All Status</span>
+                        <i class='bx bx-chevron-down'></i>
+                    </button>
+                    <div class="filter-dropdown-content">
+                        <a href="#" data-status="all">All Status</a>
+                        <a href="#" data-status="pending">Pending</a>
+                        <a href="#" data-status="replied">Replied</a>
+                    </div>
+                </div>
+                
+                <!-- Privacy Filter -->
+                <div class="filter-dropdown">
+                    <button class="filter-btn" id="privacyFilterBtn">
+                        <i class='bx bx-filter'></i>
+                        <span>All Privacy</span>
+                        <i class='bx bx-chevron-down'></i>
+                    </button>
+                    <div class="filter-dropdown-content">
+                        <a href="#" data-privacy="all">All Privacy</a>
+                        <a href="#" data-privacy="public">Public</a>
+                        <a href="#" data-privacy="private">Private</a>
+                    </div>
+                </div>
+            </div>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>User</th>
+                            <th>Question</th>
+                            <th>Privacy</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="queryList">
+                        <!-- Queries will be dynamically added here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div id="helpline-content" class="content-section">
+            <h2>Health Helpline Directory</h2>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Location</th>
+                            <th>Description</th>
+                            <th>Actions</th>
+                    </thead>
+                    <tbody id="helplineList">
+                        <!-- Helplines will be dynamically added here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="myth-content" class="content-section">
+            <h2>Myth Cards</h2>
+            <div id="mythCardList">
+                <!-- Myth cards will be added here as a grid -->
+            </div>
+        </div>
+        <div id="storyboard-content" class="content-section">
+            <h2>All Stories</h2>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>User</th>
+                            <th>Title</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody id="storyboardList">
+                        <!-- Stories will be dynamically added here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Popup Forms -->
+        <!-- Helpline Form -->
+            <div class="popup-overlay" id="helplineFormPopup">
+                <div class="popup-content">
+                    <span class="close-popup">&times;</span>
+                    <h2>Post Health Helpline</h2>
+                    <form id="helplineForm">
+                        <div class="form-group">
+                            <label for="helplineTitle">Title</label>
+                            <input type="text" id="helplineTitle" placeholder="Enter a short title for the helpline" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="helplineLocation">Location</label>
+                            <input type="text" id="helplineLocation" placeholder="Enter location (city, country, etc.)">
+                        </div>
+                        <div class="form-group">
+                            <label for="helplineDescription">Description</label>
+                            <textarea id="helplineDescription" placeholder="Provide details about the helpline (contact info, services, etc.)" required></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn">Post Helpline</button>
+                    </form>
+                </div>
+            </div>
+        <!-- Myth Card Form -->
+        <div class="popup-overlay" id="mythFormPopup">
+            <div class="popup-content">
+                <span class="close-popup">&times;</span>
+                <div class="flip-container">
+                    <div class="flipper">
+                        <!-- Front side - Myth -->
+                        <div class="front">
+                            <h2>Post a Myth</h2>
+                            <form id="mythForm">
+                                <div class="form-group">
+                                    <label for="mythText">Myth</label>
+                                    <textarea id="mythText" placeholder="Enter the myth you want to debunk" required></textarea>
+                                </div>
+                                <button type="submit" class="submit-btn">Next: Add Fact</button>
+                            </form>
+                        </div>
+                        
+                        <!-- Back side - Fact -->
+                        <div class="back">
+                            <h2>Add Fact</h2>
+                            <form id="factForm">
+                                <div class="form-group">
+                                    <label for="factText">Fact</label>
+                                    <textarea id="factText" placeholder="Provide the factual information" required></textarea>
+                                    <button type="button" class="back-btn">Back</button>
+                                </div>
+                               
+                                <button type="submit" class="submit-btn">Post Myth Card</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="{{ url_for('static', filename='js/admindashboard.js') }}"></script>
+    </section>
+</body>
+</html>
